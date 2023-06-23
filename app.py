@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import boto3
+import urllib.parse
 
 
 app = Flask(__name__)
@@ -22,9 +23,27 @@ def root_route():
 def upload():
     file = request.files['myimage']
     filename = file.filename
-    bucket_name = 'labstack-534793a3-8383-48d2-aa77-0841335-s3bucket-7dlkzmn65kau'
-    s3.Bucket(bucket_name).put_object(Key=filename, Body=file)
-    return 'File uploaded successfully!'
+    bucket_name = 'das-flask-bucket77'
+    #s3.Bucket(bucket_name).put_object(Key=filename, Body=file)
+    bucket = s3.Bucket(bucket_name)
+    bucket.put_object(
+        Key=filename,
+        Body=file,
+        ContentType='image/jpeg',
+        ContentDisposition='inline'
+    )
+    
+    encoded_object_key = urllib.parse.quote(filename)
+    object_url = f"https://{bucket_name}.s3.amazonaws.com/{encoded_object_key}"
+    
+    return object_url
+    
+
+@app.route("/create-bucket", methods=["POST"]) 
+def create_bucket():
+    bucket_name = request.form["bucket_name"]
+    s3.create_bucket(Bucket=bucket_name)
+    return 'Bucket was created'
 
 
 if __name__ == '__main__':
