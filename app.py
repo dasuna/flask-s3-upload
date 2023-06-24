@@ -15,8 +15,6 @@ s3 = boto3.resource(
 
 @app.route('/')
 def root_route():
-    #dynamodb.create_table_movie()
-    #return 'Table Created'
     return render_template("index.html")
     
 @app.route('/upload', methods=['POST'])
@@ -38,13 +36,6 @@ def upload():
     
     return object_url
     
-
-@app.route("/create-bucket", methods=["POST"]) 
-def create_bucket():
-    bucket_name = request.form["bucket_name"]
-    s3.create_bucket(Bucket=bucket_name)
-    return 'Bucket was created'
-
 
 if __name__ == '__main__':
     app.run(debug=True,port=8080,host='0.0.0.0')
