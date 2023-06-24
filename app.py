@@ -22,7 +22,6 @@ def upload():
     file = request.files['myimage']
     filename = file.filename
     bucket_name = 'das-flask-bucket77'
-    #s3.Bucket(bucket_name).put_object(Key=filename, Body=file)
     bucket = s3.Bucket(bucket_name)
     bucket.put_object(
         Key=filename,
