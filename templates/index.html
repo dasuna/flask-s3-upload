@@ -1,27 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>DynamoDB CRUD APP</title> 
+<title>Flask S3 Upload App</title> 
 </head>
 
 <body>
     
-
 <h1>Please submit the below form</h1>
 
-
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="myimage" />
-            <input type="submit" />
-        </form>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="myimage" />
+        <input type="submit" />
+    </form>
         
 <br>
-
-<form action="/create-bucket" method="post"> 
-<input type="text" name="bucket_name"> 
-<input type="submit" value="Create Bucket"> 
-</form>
-
 
 <body>
 </html>
